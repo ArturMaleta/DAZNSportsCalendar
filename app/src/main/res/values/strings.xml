@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">DAZN Sports Calendar</string>
+    <string name="events_nav_bar">EVENTS</string>
+    <string name="schedule_nav_bar">SCHEDULE</string>
+    <string name="error_message_no_events_today">sorry \n there are no events today</string>
+    <string name="error_message_no_video_url">sorry \n there are no video url</string>
+    <string name="error_message_loading_failure">sorry \n loading has failed</string>
+</resources>

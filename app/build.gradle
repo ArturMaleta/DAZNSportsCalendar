@@ -1,0 +1,78 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+
+android {
+    compileSdkVersion toolVersions.android.compileSdk
+    buildToolsVersion toolVersions.android.buildTools
+
+    defaultConfig {
+        applicationId "mal.art.daznsportscalendar"
+        minSdkVersion toolVersions.android.minSdk
+        targetSdkVersion toolVersions.android.targetSdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = toolVersions.kotlin_jvm_target
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:${toolVersions.android.kotlin}"
+    implementation "androidx.core:core-ktx:${libVersions.core.ktx}"
+    implementation "androidx.appcompat:appcompat:${libVersions.android.appCompat}"
+    implementation "com.google.android.material:material:${libVersions.android.material}"
+    implementation "androidx.constraintlayout:constraintlayout:${libVersions.android.constraintLayout}"
+
+    //ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${libVersions.android.viewModel}"
+
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:${libVersions.retrofit}"
+    implementation "com.squareup.retrofit2:converter-gson:${libVersions.retrofit}"
+    implementation "com.squareup.okhttp3:okhttp:${libVersions.okhttp3}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${libVersions.retrofitAdapterRxJava}"
+    implementation "com.squareup.retrofit2:converter-gson:${libVersions.retrofit}"
+
+    //RxJava
+    implementation "io.reactivex.rxjava2:rxandroid:${libVersions.rx.rxAndroid}"
+    implementation "io.reactivex.rxjava2:rxjava:${libVersions.rx.rxJava}"
+
+    //Glide
+    implementation "com.github.bumptech.glide:glide:${libVersions.glide}"
+
+    //Koin
+    implementation "org.koin:koin-androidx-viewmodel:${libVersions.core.koin}"
+    implementation "org.koin:koin-android:${libVersions.core.koin}"
+
+    //Material Design
+    implementation "com.google.android.material:material:${libVersions.android.materialDesign}"
+
+    //Joda-Time
+    implementation "net.danlew:android.joda:${libVersions.jodaTime}"
+
+    //ExoPlayer
+    implementation "com.google.android.exoplayer:exoplayer-core:${libVersions.exoPlayer}"
+    implementation "com.google.android.exoplayer:exoplayer-dash:${libVersions.exoPlayer}"
+    implementation "com.google.android.exoplayer:exoplayer-ui:${libVersions.exoPlayer}"
+
+    //FastAdapter
+    implementation "com.mikepenz:fastadapter:${libVersions.android.fastAdapter}"
+    implementation "com.mikepenz:fastadapter-extensions-diff:${libVersions.android.fastAdapter}"
+    implementation "com.mikepenz:fastadapter-extensions-scroll:${libVersions.android.fastAdapter}"
+}

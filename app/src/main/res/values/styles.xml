@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextAppearance">
+        <item name="android:textColor">@font/lato_black</item>
+    </style>
+
+    <style name="TextAppearance.Big" parent="TextAppearance">
+        <item name="android:textSize">@dimen/fontSize44</item>
+        <item name="android:textColor">@color/gold</item>
+    </style>
+
+    <style name="TextAppearance.Medium18" parent="TextAppearance">
+        <item name="android:textSize">@dimen/fontSize18</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextAppearance.Medium18.grey" parent="TextAppearance.Medium18">
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <style name="TextAppearance.Medium16" parent="TextAppearance">
+        <item name="android:textSize">@dimen/fontSize16</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextAppearance.Medium14" parent="TextAppearance">
+        <item name="android:textSize">@dimen/fontSize14</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextAppearance.Medium14.grey" parent="TextAppearance.Medium14">
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <style name="Image">
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+</resources>

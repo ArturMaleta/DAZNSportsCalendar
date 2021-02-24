@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/margin4">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="@dimen/imageWidth"
+        android:layout_height="wrap_content"
+        android:background="@color/black"/>
+
+    <TextView
+        android:id="@+id/event_title_tv"
+        style="@style/TextAppearance.Medium16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/image"
+        android:layout_marginStart="@dimen/margin8" />
+
+    <TextView
+        android:id="@+id/event_type_tv"
+        style="@style/TextAppearance.Medium14"
+        android:layout_marginStart="@dimen/margin8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/image"
+        android:layout_below="@id/event_title_tv" />
+
+    <TextView
+        android:id="@+id/event_date_tv"
+        style="@style/TextAppearance.Medium14.grey"
+        android:layout_marginStart="@dimen/margin8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/image"
+        android:layout_alignBottom="@+id/image" />
+
+</RelativeLayout>
