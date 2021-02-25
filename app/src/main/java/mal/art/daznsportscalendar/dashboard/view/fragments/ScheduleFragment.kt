@@ -2,13 +2,12 @@ package mal.art.daznsportscalendar.dashboard.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.TextView
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.GenericFastAdapter
 import com.mikepenz.fastadapter.adapters.GenericItemAdapter
@@ -17,27 +16,32 @@ import io.reactivex.disposables.CompositeDisposable
 import mal.art.daznsportscalendar.R
 import mal.art.daznsportscalendar.dashboard.model.SportEvent
 import mal.art.daznsportscalendar.dashboard.viewmodel.DAZNViewModel
+import mal.art.daznsportscalendar.databinding.ScheduleFragmentLayoutBinding
 import mal.art.daznsportscalendar.util.base.BaseValues
 import mal.art.daznsportscalendar.util.extensions.setVisible
 import mal.art.daznsportscalendar.util.item.EventListItem
-import mal.art.daznsportscalendar.util.time.TimeHelper
 import mal.art.daznsportscalendar.video.activity.VideoPlayerActivity
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ScheduleFragment : Fragment(R.layout.schedule_fragment_layout) {
     private val viewModel by viewModel<DAZNViewModel>()
-    private val timeHelper by inject<TimeHelper>()
     private val itemAdapter: GenericItemAdapter = ItemAdapter()
     private val adapter: GenericFastAdapter = FastAdapter.with(itemAdapter)
     private val disposable = CompositeDisposable()
-    private lateinit var recyclerView: RecyclerView
+    private var _binding: ScheduleFragmentLayoutBinding? = null
+    private val binding get() = _binding!!
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = ScheduleFragmentLayoutBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        recyclerView = view.findViewById(R.id.schedule_fragment_rv)
 
         setupAdapter()
     }
@@ -68,13 +72,12 @@ class ScheduleFragment : Fragment(R.layout.schedule_fragment_layout) {
                     itemAdapter.add(it)
                 }
         } else {
-            val noEventsTv: TextView = view!!.findViewById(R.id.no_events_tv)
-            noEventsTv.setVisible()
+            binding.noEventsTv.setVisible()
         }
     }
 
     private fun setupAdapter() {
-        recyclerView.also {
+        binding.scheduleFragmentRv.also {
             it.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             it.adapter = adapter
             it.addItemDecoration(DividerItemDecoration(context, 1))
@@ -102,8 +105,7 @@ class ScheduleFragment : Fragment(R.layout.schedule_fragment_layout) {
     }
 
     private fun handleLoadingFailure(throwable: Throwable) {
-        val errorTv: TextView = view!!.findViewById(R.id.scheduled_events_fragment_error_tv)
-        errorTv.setVisible()
+        binding.scheduledEventsFragmentErrorTv.setVisible()
     }
 
     override fun onStop() {
