@@ -13,17 +13,17 @@ import com.mikepenz.fastadapter.GenericFastAdapter
 import com.mikepenz.fastadapter.adapters.GenericItemAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import io.reactivex.disposables.CompositeDisposable
-import mal.art.daznsportscalendar.R
 import mal.art.daznsportscalendar.dashboard.model.SportEvent
 import mal.art.daznsportscalendar.dashboard.viewmodel.DAZNViewModel
 import mal.art.daznsportscalendar.databinding.ScheduleFragmentLayoutBinding
 import mal.art.daznsportscalendar.util.base.BaseValues
+import mal.art.daznsportscalendar.util.extensions.setGone
 import mal.art.daznsportscalendar.util.extensions.setVisible
 import mal.art.daznsportscalendar.util.item.EventListItem
 import mal.art.daznsportscalendar.video.activity.VideoPlayerActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ScheduleFragment : Fragment(R.layout.schedule_fragment_layout) {
+class ScheduleFragment : Fragment() {
     private val viewModel by viewModel<DAZNViewModel>()
     private val itemAdapter: GenericItemAdapter = ItemAdapter()
     private val adapter: GenericFastAdapter = FastAdapter.with(itemAdapter)
@@ -47,7 +47,9 @@ class ScheduleFragment : Fragment(R.layout.schedule_fragment_layout) {
     }
 
     private fun observeViewModel() {
-        viewModel.subject.subscribe {
+        viewModel.subject
+            .doOnSubscribe { showLoader() }
+            .subscribe {
             when (it) {
                 is DAZNViewModel.Event.LoadingFailure -> handleLoadingFailure(it.throwable)
                 is DAZNViewModel.Event.LoadingScheduledEventsSuccess -> handleLoadingSuccess(it.data)
@@ -63,6 +65,7 @@ class ScheduleFragment : Fragment(R.layout.schedule_fragment_layout) {
     }
 
     private fun handleLoadingSuccess(data: List<SportEvent>) {
+        hideLoader()
         val scheduledEvents = viewModel.filterTodayEvents(data)
         if (scheduledEvents.isNotEmpty()) {
             scheduledEvents
@@ -90,7 +93,6 @@ class ScheduleFragment : Fragment(R.layout.schedule_fragment_layout) {
             when (item) {
                 is EventListItem -> performEventClick(item.event)
                 else -> Unit
-
             }
             disposable.clear()
             false
@@ -105,7 +107,16 @@ class ScheduleFragment : Fragment(R.layout.schedule_fragment_layout) {
     }
 
     private fun handleLoadingFailure(throwable: Throwable) {
+        hideLoader()
         binding.scheduledEventsFragmentErrorTv.setVisible()
+    }
+
+    private fun showLoader() {
+        binding.progressBar.setVisible()
+    }
+
+    private fun hideLoader() {
+        binding.progressBar.setGone()
     }
 
     override fun onStop() {

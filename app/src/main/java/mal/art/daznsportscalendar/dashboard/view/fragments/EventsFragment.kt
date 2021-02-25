@@ -11,10 +11,13 @@ import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.GenericFastAdapter
 import com.mikepenz.fastadapter.adapters.GenericItemAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
+import io.reactivex.disposables.Disposable
+import io.reactivex.functions.Consumer
 import mal.art.daznsportscalendar.dashboard.model.SportEvent
 import mal.art.daznsportscalendar.dashboard.viewmodel.DAZNViewModel
 import mal.art.daznsportscalendar.databinding.EventsFragmentLayoutBinding
 import mal.art.daznsportscalendar.util.base.BaseValues
+import mal.art.daznsportscalendar.util.extensions.setGone
 import mal.art.daznsportscalendar.util.extensions.setVisible
 import mal.art.daznsportscalendar.util.item.EventListItem
 import mal.art.daznsportscalendar.video.activity.VideoPlayerActivity
@@ -46,7 +49,9 @@ class EventsFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.subject.subscribe {
+        viewModel.subject
+            .doOnSubscribe { showLoader() }
+            .subscribe {
             when (it) {
                 is DAZNViewModel.Event.LoadingFailure -> handleLoadingFailure(it.throwable)
                 is DAZNViewModel.Event.LoadingEventsSuccess -> handleLoadingSuccess(it.data)
@@ -56,6 +61,7 @@ class EventsFragment : Fragment() {
     }
 
     private fun handleLoadingSuccess(data: List<SportEvent>) {
+        hideLoader()
         data.map { EventListItem(it) }
             .let { itemAdapter.add(it) }
     }
@@ -84,7 +90,16 @@ class EventsFragment : Fragment() {
             .apply { putExtra(BaseValues.Message.VIDEO_URL_MESSAGE, event.videoUrl) })
 
     private fun handleLoadingFailure(throwable: Throwable) {
+        hideLoader()
         binding.eventsFragmentErrorTv.setVisible()
+    }
+
+    private fun showLoader() {
+        binding.progressBar.setVisible()
+    }
+
+    private fun hideLoader() {
+        binding.progressBar.setGone()
     }
 
     override fun onDestroyView() {
