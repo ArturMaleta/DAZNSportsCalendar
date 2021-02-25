@@ -11,15 +11,11 @@ import java.util.concurrent.TimeUnit
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
 
-        startApp()
+        openDashboard()
     }
-
-    private fun startApp() = Single.timer(BaseValues.TimedEvents.SPLASH_TIME_IN_MILLIS, TimeUnit.MILLISECONDS)
-        .map { openDashboard() }
-        .subscribe()
 
     private fun openDashboard() = startActivityWithFinish(DashboardActivity.intent(this))
 }
