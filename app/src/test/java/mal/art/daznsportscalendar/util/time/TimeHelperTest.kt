@@ -10,6 +10,12 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 class TimeHelperTest {
     private lateinit var timeHelper: TimeHelper
+
+    private val yesterday = "Yesterday"
+    private val today = "Today"
+    private val tomorrow = "Tomorrow"
+    private val dayInFuture = "2021-05-01"
+    private val dayInPast = "2021-04-15"
     private val hour = "00:58"
     private val yesterdayHourInMillis = 1619564280000
     private val todayHourInMillis = 1619650680000
@@ -27,34 +33,34 @@ class TimeHelperTest {
     fun convertDate_correctYesterdayHourData_returnsTrue() {
         val result = timeHelper.convertDate(yesterdayHourInMillis)
 
-        assertThat(result, `is`("Yesterday, $hour"))
+        assertThat(result, `is`("$yesterday, $hour"))
     }
 
     @Test
     fun convertDate_correctCurrentHourData_returnsTrue() {
         val result = timeHelper.convertDate(todayHourInMillis)
 
-        assertThat(result, `is`("Today, $hour"))
+        assertThat(result, `is`("$today, $hour"))
     }
 
     @Test
     fun convertDate_correctTomorrowHourData_returnsTrue() {
         val result = timeHelper.convertDate(tomorrowHourInMillis)
 
-        assertThat(result, `is`("Tomorrow, $hour"))
+        assertThat(result, `is`("$tomorrow, $hour"))
     }
 
     @Test
     fun convertDate_correctTwoDaysInAdvanceHourData_returnsTrue() {
         val result = timeHelper.convertDate(twoDaysInAdvanceHourInMillis)
 
-        assertThat(result, `is`("2021-05-01, 00:58"))
+        assertThat(result, `is`("$dayInFuture, $hour"))
     }
 
     @Test
     fun convertDate_correctfourteenDaysEarlierHourData_returnsTrue() {
         val result = timeHelper.convertDate(fourteenDaysEarlierHourInMillis)
 
-        assertThat(result, `is`("2021-04-15, 00:58"))
+        assertThat(result, `is`("$dayInPast, $hour"))
     }
 }
