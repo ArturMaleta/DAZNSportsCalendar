@@ -1,8 +1,5 @@
 package mal.art.daznsportscalendar.dashboard.viewmodel
 
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.verify
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
 import mal.art.daznsportscalendar.dashboard.model.SportEvent
