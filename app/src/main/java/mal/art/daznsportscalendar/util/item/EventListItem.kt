@@ -18,7 +18,6 @@ class EventListItem(val event: SportEvent) : AbstractItem<EventListItem.ViewHold
     override val layoutRes = R.layout.list_recycler_view_item
     override val type = R.layout.list_recycler_view_item
 
-
     override fun getViewHolder(v: View) = ViewHolder(v)
 
     class ViewHolder(v: View) : FastAdapter.ViewHolder<EventListItem>(v), KoinComponent {

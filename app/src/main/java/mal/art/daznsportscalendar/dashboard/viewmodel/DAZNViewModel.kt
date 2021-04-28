@@ -16,9 +16,9 @@ class DAZNViewModel(private val repository: Repository) : ViewModel() {
     val subject = PublishSubject.create<Event>()
 
     sealed class Event {
-        data class LoadingFailure(val throwable: Throwable) : Event()
-        data class LoadingEventsSuccess(val data: List<SportEvent>) : Event()
-        data class LoadingScheduledEventsSuccess(val data: List<SportEvent>) : Event()
+        class LoadingFailure(val throwable: Throwable) : Event()
+        class LoadingEventsSuccess(val data: List<SportEvent>) : Event()
+        class LoadingScheduledEventsSuccess(val data: List<SportEvent>) : Event()
     }
 
     fun getEventsAscending() {
