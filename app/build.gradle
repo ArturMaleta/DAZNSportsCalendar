@@ -90,7 +90,6 @@ dependencies {
     androidTestImplementation "androidx.test:core:${libVersions.test.core}"
     testImplementation "org.jetbrains.kotlin:kotlin-test-junit:${toolVersions.android.kotlin}"
     androidTestImplementation "org.jetbrains.kotlin:kotlin-test-junit:${toolVersions.android.kotlin}"
-    androidTestImplementation "androidx.test.espresso:espresso-core:${libVersions.test.espresso}"
     testImplementation "org.mockito:mockito-core:${libVersions.test.mockito}"
     testImplementation "io.mockk:mockk:${libVersions.test.mockk}"
     androidTestImplementation "io.mockk:mockk-android:${libVersions.test.mockk}"
