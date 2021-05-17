@@ -10,7 +10,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.mockito.Mockito.*
-import java.lang.Exception
 
 @RunWith(JUnit4::class)
 class RepositoryTest {
@@ -36,29 +35,38 @@ class RepositoryTest {
     }
 
     @Test
-    fun getEvents_success_eventsAreNotEmptyReturned() {
-        `when`(repository.getEvents()).thenReturn(Single.just(events))
-
+    fun `test getEvents eventsAreNotEmptyReturned`() {
+        // given
         val result = repository.getEvents().blockingGet()
 
+        // when
+        `when`(repository.getEvents()).thenReturn(Single.just(events))
+
+        // then
         assert(result.isNotEmpty())
     }
 
     @Test
-    fun getEvents_success_listOfEventsEmptyReturned() {
-        `when`(repository.getEvents()).thenReturn(Single.just(emptyList()))
-
+    fun `test getEvents listOfEventsEmptyReturned`() {
+        // given
         val result = repository.getEvents().blockingGet()
 
+        // when
+        `when`(repository.getEvents()).thenReturn(Single.just(emptyList()))
+
+        // then
         assert(result.isEmpty())
     }
 
     @Test
-    fun getEvents_failure_errorReturned() {
-        `when`(repository.getEvents()).thenReturn(Single.error(Error(errorMessage)))
-
+    fun `test getEvents error occurred errorReturned`() {
+        // given
         val result = repository.getEvents()
 
+        // when
+        `when`(repository.getEvents()).thenReturn(Single.error(Error(errorMessage)))
+
+        // then
         val testObserver = TestObserver<List<SportEvent>>()
         result.subscribe(testObserver)
         testObserver.assertError(Error(errorMessage).javaClass)
@@ -66,9 +74,8 @@ class RepositoryTest {
     }
 
     @Test
-    fun getEvents_success_eventsAreEqual() {
-        `when`(repository.getEvents()).thenReturn(Single.just(events))
-
+    fun `test getEvents eventsAreEqual`() {
+        // given
         val result = repository.getEvents()
 
         val testObserver = TestObserver<List<SportEvent>>()
@@ -77,6 +84,10 @@ class RepositoryTest {
         testObserver.assertNoErrors()
         testObserver.assertValueCount(1)
 
+        // when
+        `when`(repository.getEvents()).thenReturn(Single.just(events))
+
+        //then
         val listResult = testObserver.values()[0]
         assertThat(listResult.size, `is`(3))
         assertThat(listResult[0].id, `is`(id1))
@@ -88,29 +99,38 @@ class RepositoryTest {
     }
 
     @Test
-    fun getScheduledEvents_success_eventsAreNotEmptyReturned() {
-        `when`(repository.getScheduledEvents()).thenReturn(Single.just(events))
-
+    fun `test getScheduledEvents eventsAreNotEmptyReturned`() {
+        // given
         val result = repository.getScheduledEvents().blockingGet()
 
+        // when
+        `when`(repository.getScheduledEvents()).thenReturn(Single.just(events))
+
+        //then
         assert(result.isNotEmpty())
     }
 
     @Test
-    fun getScheduledEvents_success_listOfEventsEmptyReturned() {
-        `when`(repository.getScheduledEvents()).thenReturn(Single.just(emptyList()))
-
+    fun ` test getScheduledEvents listOfEventsEmptyReturned`() {
+        // given
         val result = repository.getScheduledEvents().blockingGet()
 
+        // when
+        `when`(repository.getScheduledEvents()).thenReturn(Single.just(emptyList()))
+
+        // then
         assert(result.isEmpty())
     }
 
     @Test
-    fun getScheduledEvents_failure_errorReturned() {
-        `when`(repository.getScheduledEvents()).thenReturn(Single.error(Error(errorMessage)))
-
+    fun `test getScheduledEvents error occurred errorReturned`() {
+        //given
         val result = repository.getScheduledEvents()
 
+        // when
+        `when`(repository.getScheduledEvents()).thenReturn(Single.error(Error(errorMessage)))
+
+        //then
         val testObserver = TestObserver<List<SportEvent>>()
         result.subscribe(testObserver)
         testObserver.assertError(Error(errorMessage).javaClass)
@@ -118,9 +138,8 @@ class RepositoryTest {
     }
 
     @Test
-    fun getScheduledEvents_success_eventsAreEqual() {
-        `when`(repository.getScheduledEvents()).thenReturn(Single.just(events))
-
+    fun `test getScheduledEvents eventsAreEqual`() {
+        //given
         val result = repository.getScheduledEvents()
 
         val testObserver = TestObserver<List<SportEvent>>()
@@ -129,6 +148,10 @@ class RepositoryTest {
         testObserver.assertNoErrors()
         testObserver.assertValueCount(1)
 
+        // when
+        `when`(repository.getScheduledEvents()).thenReturn(Single.just(events))
+
+        // then
         val listResult = testObserver.values()[0]
         assertThat(listResult.size, `is`(3))
         assertThat(listResult[0].id, `is`(id1))

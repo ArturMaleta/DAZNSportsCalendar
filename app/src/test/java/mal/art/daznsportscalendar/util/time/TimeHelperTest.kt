@@ -8,7 +8,6 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 @RunWith(JUnit4::class)
 class TimeHelperTest {
@@ -36,44 +35,56 @@ class TimeHelperTest {
     }
 
     @Test
-    fun convertDate_correctYesterdayHourData_returnsCorrectOutput() {
+    fun `test convertDate correctYesterdayHourData returnsCorrectOutput`() {
+        // given
         val result = timeHelper.convertDate(yesterdayHourInMillis)
 
+        // then
         assertThat(result, `is`("$yesterday, $hour"))
     }
 
     @Test
-    fun convertDate_correctCurrentHourData_returnsCorrectOutput() {
+    fun `test convertDate correctCurrentHourData returnsCorrectOutput`() {
+        // given
         val result = timeHelper.convertDate(todayHourInMillis)
 
+        // then
         assertThat(result, `is`("$today, $hour"))
     }
 
     @Test
-    fun convertDate_correctTomorrowHourData_returnsCorrectOutput() {
+    fun `test convertDate correctTomorrowHourData returnsCorrectOutput`() {
+        // given
         val result = timeHelper.convertDate(tomorrowHourInMillis)
 
+        // then
         assertThat(result, `is`("$tomorrow, $hour"))
     }
 
     @Test
-    fun convertDate_correctTwoDaysInAdvanceHourData_returnsCorrectOutput() {
+    fun `test convertDate correctTwoDaysInAdvanceHourData returnsCorrectOutput`() {
+        // given
         val result = timeHelper.convertDate(twoDaysInAdvanceHourInMillis)
 
+        // then
         assertThat(result, `is`("$dayInFuture, $hour"))
     }
 
     @Test
-    fun convertDate_correctFourteenDaysEarlierHourData_returnsCorrectOutput() {
+    fun `test convertDate correctFourteenDaysEarlierHourData returnsCorrectOutput`() {
+        // given
         val result = timeHelper.convertDate(fourteenDaysEarlierHourInMillis)
 
+        // then
         assertThat(result, `is`("$dayInPast, $hour"))
     }
 
     @Test
-    fun convertDate_zeroAsInput_returns1970() {
+    fun `test convertDate zeroAsInput returns1970`() {
+        // when
         val result = timeHelper.convertDate(zeroMillis)
 
+        // then
         assertThat(result, `is`("$zeroDay, $zeroHour"))
     }
 
